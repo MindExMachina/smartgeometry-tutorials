@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Create HTTP routes
-
+app.get('/a', console.log);
 // Simple GET route
 app.get('/', function(req, res) {
     console.log('GET /');
