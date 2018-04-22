@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 
 // Simple GET route
 app.get('/', function(req, res) {
+    console.log('GET /');
     res.send('Hello, HTTP!');
 });
 
@@ -24,6 +25,8 @@ app.get('/', function(req, res) {
 app.get('/color/:color', function(req, res) {
 
     let color = req.params.color;
+    // Log color to console
+    console.log('GET /color/' + color);
     res.json({ color: color });
 
 });
@@ -58,6 +61,6 @@ app.post('/login', function(req, res) {
 
 // Start the HTTP server
 
-app.listen(3000, function() {
-    console.log('HTTP server running on localhost:3000..');
-});
+app.listen(3000);
+
+console.log('Running on http://localhost:3000..');
