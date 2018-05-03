@@ -1,4 +1,4 @@
-# SmartGeometry · Mind Ex Machina · Video Tutorials Source Code
+# Video Tutorials Source Code
 
 🧠x🤖
 
