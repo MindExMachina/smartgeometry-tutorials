@@ -3,34 +3,31 @@
  * using http://github.com/websockets/ws
  */
 
-//'use strict';
-
-const express = require('express');
-const WebSocket = require('ws');
-const SocketServer = require('ws').Server;
-const path = require('path');
+import express from 'express';
+import { WebSocket, WebSocketServer } from 'ws';
+import { v4 as uuidv4 } from 'uuid';
 
 const PORT = process.env.PORT || 3000;
-const INDEX = path.join(__dirname, 'index.html');
 
 const server = express()
-    .use((req, res) => res.sendFile(INDEX))
     .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-const wss = new SocketServer({ server });
+const wss = new WebSocketServer({ server });
 
 wss.on('connection', (ws) => {
 
-    console.log('Client connected');
+    const uuid = uuidv4();
 
-    ws.on('close', () => console.log('Client disconnected'));
+    console.log(`[${uuid}] Client connected`);
 
-    ws.on('message', function incoming(message) {
+    ws.on('close', () => console.log(`[${uuid}] Client disconnected`));
 
-        console.log('[Server] Received message: %s', message);
+    ws.on('message', (message) => {
+
+        console.log(`[${uuid}] Received message: ${message}`);
 
         // Broadcast to everyone else.
-        wss.clients.forEach(function each(client) {
+        wss.clients.forEach((client) => {
             if (client !== ws && client.readyState === WebSocket.OPEN) {
                 client.send(message);
             }
